@@ -9,9 +9,11 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
     docker build -t gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1 .
     echo "step 2bis"
     gcloud auth configure-docker
-    echo "step 3"
+    echo "step - login"
     #gcloud docker --verbosity=error -- push gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1 > /dev/null
     #https://medium.com/google-cloud/using-googles-private-container-registry-with-docker-1b470cf3f50a
+    docker login -u _json_key -p "$(cat gcloud.json)" https://gcr.io
+    echo "step - push"
     docker push gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1
     #gcloud components install docker-credential-gcloud
     #echo "step 3b"
