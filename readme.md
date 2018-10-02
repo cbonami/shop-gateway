@@ -32,3 +32,6 @@ cat project-shop-gateway.json | base64
 * [Spring Cloud Gateway - Baeldung](https://www.baeldung.com/spring-cloud-gateway)
 * [Spring Cloud Gateway - Routing Example](https://stackoverflow.com/questions/48865174/spring-cloud-gateway-proxy-forward-the-entire-sub-part-of-url)
 * [Deploying from Travis to GCE](http://thylong.com/ci/2016/deploying-from-travis-to-gce/)
+
+https://stackoverflow.com/questions/29045140/env-bash-r-no-such-file-or-directory
+git config --global core.autocrlf false

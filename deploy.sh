@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
-then
+if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
     echo "step 1"
     gcloud --quiet components update kubectl
     echo "step 2"
