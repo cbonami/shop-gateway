@@ -10,9 +10,9 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
     echo "step 2bis"
     gcloud auth configure-docker
     echo "step 3"
-    gcloud docker --verbosity=error -- push gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1 > /dev/null
+    #gcloud docker --verbosity=error -- push gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1 > /dev/null
     #https://medium.com/google-cloud/using-googles-private-container-registry-with-docker-1b470cf3f50a
-    #docker push gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1
+    docker push gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1
     #gcloud components install docker-credential-gcloud
     #echo "step 3b"
     #docker-credential-gcloud configure-docker
