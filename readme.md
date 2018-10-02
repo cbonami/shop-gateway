@@ -2,32 +2,30 @@
 
 ## Travis
 
-```
-travis login
-travis encrypt "DOCKER_USER=cbonami" --add env.global
-travis encrypt "DOCKER_PASS=xxxxxxxxx" --add env.global
-```
-
-http://thylong.com/ci/2016/deploying-from-travis-to-gce/
+[Inspiration](http://thylong.com/ci/2016/deploying-from-travis-to-gce/)
 
 Make service account on GCP 
-* IAM > Service Accounts
+* IAM > Service Accounts > Add
+Roles:
 * Project > Edit
+* Storage Admin
 
 ```
+gcloud projects add-iam-policy-binding shop -- member serviceAccount:travisci@refined-algebra-215620.iam.gserviceaccount.com -- role roles/storage.admin
 cat project-shop-gateway.json | base64 > base64
 ```
 
 > see pastebin.md for key
 
-* GCLOUD_EMAIL: travis@refined-algebra-215620.iam.gserviceaccount.com
-* GCLOUD_KEY: base64-encoded version of project_name-xxxxx.json
-* CLOUDSDK_CORE_DISABLE_PROMPTS: 1
-* CLOUDSDK_CORE_PROJECT: your project name on gcloud; eg: shop
+Travis project settings: env vars:
+
+* GCLOUD_EMAIL: travisci@refined-algebra-215620.iam.gserviceaccount.com
+* CLOUDSDK_CORE_PROJECT: your project id on gcloud; eg: refined-algebra-215620
 * CLOUDSDK_COMPUTE_ZONE: europe-west1-b	
+* GKE_SERVER: the cluster IP: 35.205.224.241
+* MICROSERVICE_NAME: shop-gateway
 * GKE_USERNAME: cbonami@gmail.com
 * GKE_PASSWORD: 
-* GKE_SERVER: the cluster IP: 35.205.224.241
 
 ## Links
 
@@ -36,8 +34,6 @@ cat project-shop-gateway.json | base64 > base64
 * [Deploying from Travis to GCE](http://thylong.com/ci/2016/deploying-from-travis-to-gce/)
 
 https://stackoverflow.com/questions/29045140/env-bash-r-no-such-file-or-directory
+```
 git config --global core.autocrlf false
-
-http://www.solutionscan.org/46132-docker
-
-gcloud projects add-iam-policy-binding shop -- member serviceAccount:travis@refined-algebra-215620.iam.gserviceaccount.com -- role roles/storage.admin
+```
