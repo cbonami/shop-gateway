@@ -13,7 +13,7 @@ Make service account on GCP
 * Project > Edit
 
 ```
-cat project-shop-gateway.json | base64
+cat project-shop-gateway.json | base64 > base64
 ```
 
 > see pastebin.md for key
