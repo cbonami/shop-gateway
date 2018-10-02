@@ -1,4 +1,5 @@
 language: java
+#dist: trusty
 jdk: oraclejdk8
 sudo: required
 services:
@@ -8,16 +9,28 @@ env:
   - COMMIT=${TRAVIS_COMMIT::7}
 before_install:
 - chmod +x mvnw
-script:
-- "./mvnw clean install -B"
+- chmod +x auth-gcloud.sh
+- chmod +x deploy.sh
 cache:
   directories:
   - "$HOME/.m2/repository"
+  - "$HOME/google-cloud-sdk/"
+script:
+- "./mvnw clean install -B"
+#after_success:
+#- docker login -u $DOCKER_USER -p $DOCKER_PASS
+#- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
+#  ; fi`
+#- export IMAGE_NAME=cbonami/shop-gateway
+#- docker build -t $IMAGE_NAME:$COMMIT .
+#- docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
+#- docker push $IMAGE_NAME
 after_success:
-- docker login -u $DOCKER_USER -p $DOCKER_PASS
-- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
-  ; fi`
-- export IMAGE_NAME=cbonami/shop-gateway
-- docker build -t $IMAGE_NAME:$COMMIT .
-- docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
-- docker push $IMAGE_NAME
+- if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; curl https://sdk.cloud.google.com | bash; fi
+# Add gcloud to $PATH
+- source /home/travis/google-cloud-sdk/path.bash.inc
+# Auth flow
+- bash auth-gcloud.sh
+# Deployment if master branch and !PR
+- bash deploy.sh
+

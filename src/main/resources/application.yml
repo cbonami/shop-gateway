@@ -43,5 +43,5 @@ info:
     java:
       version: @java.version@
 
-logging:
-  file: app.log
+#logging:
+#  file: app.log
