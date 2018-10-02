@@ -4,9 +4,11 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
     gcloud --quiet components update kubectl
     echo "step 2"
     # Push to Google container registry
-    docker build -t gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1 .
+    docker build -t eu.gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1 .
     echo "step 3"
-    gcloud docker -- push gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1 > /dev/null
+    gcloud auth configure-docker
+    echo "step 3b"
+    docker push eu.gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1
     echo "step 4"
     # Deploy to the cluster
     gcloud container clusters get-credentials $CLOUDSDK_CORE_PROJECT
