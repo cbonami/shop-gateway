@@ -35,3 +35,5 @@ cat project-shop-gateway.json | base64
 
 https://stackoverflow.com/questions/29045140/env-bash-r-no-such-file-or-directory
 git config --global core.autocrlf false
+
+http://www.solutionscan.org/46132-docker
