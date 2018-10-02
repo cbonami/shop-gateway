@@ -13,7 +13,7 @@ spec:
         app: web
     spec:
       containers:
-      - image: gcr.io/refined-algebra-215620/shop-gateway:v1
+      - image: eu.gcr.io/refined-algebra-215620/shop-gateway:v1
         imagePullPolicy: Always
         name: web
         resources:
