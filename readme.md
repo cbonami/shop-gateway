@@ -8,6 +8,8 @@ travis encrypt "DOCKER_USER=cbonami" --add env.global
 travis encrypt "DOCKER_PASS=xxxxxxxxx" --add env.global
 ```
 
+http://thylong.com/ci/2016/deploying-from-travis-to-gce/
+
 Make service account on GCP 
 * IAM > Service Accounts
 * Project > Edit
