@@ -1,5 +1,4 @@
-#! /bin/bash
-gcloud version
+#!/bin/bash
 gcloud --quiet components update kubectl
 # Auth flow
 echo $GCLOUD_KEY | base64 --decode > gcloud.p12
