@@ -39,3 +39,5 @@ https://stackoverflow.com/questions/29045140/env-bash-r-no-such-file-or-director
 git config --global core.autocrlf false
 
 http://www.solutionscan.org/46132-docker
+
+gcloud projects add-iam-policy-binding shop -- member serviceAccount:travis@refined-algebra-215620.iam.gserviceaccount.com -- role roles/storage.admin
