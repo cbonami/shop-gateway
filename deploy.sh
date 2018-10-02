@@ -6,9 +6,10 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
     # Push to Google container registry
     docker build -t eu.gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1 .
     echo "step 3"
-    gcloud components install docker-credential-gcr
-    gcloud auth configure-docker
+    gcloud components install docker-credential-gcloud
     echo "step 3b"
+    docker-credential-gcloud configure-docker
+    echo "step 3c"
     docker push eu.gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1
     echo "step 4"
     # Deploy to the cluster
