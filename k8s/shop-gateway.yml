@@ -3,19 +3,19 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: web-controller
+  name: shop-gateway-controller
   namespace: default
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: web
+        app: shop-gateway
     spec:
       containers:
       - image: eu.gcr.io/refined-algebra-215620/shop-gateway:v1
         imagePullPolicy: Always
-        name: web
+        name: shop-gateway
         resources:
           requests:
             cpu: 50m
@@ -40,10 +40,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web
+  name: shop-gateway
   namespace: default
   labels:
-    app: web
+    app: shop-gateway
 spec:
   type: NodePort
   # loadBalancerIP: 104.196.118.31
@@ -53,7 +53,7 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: web
+    app: shop-gateway
 #---
 #apiVersion: extensions/v1beta1
 #kind: Ingress
