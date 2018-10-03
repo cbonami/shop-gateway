@@ -1,5 +1,4 @@
 language: java
-#dist: trusty
 jdk: oraclejdk8
 sudo: required
 services:
@@ -7,13 +6,11 @@ services:
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::7}
-  # Do not prompt for user input when using any SDK methods.
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+  - secure: MclsPPvcKa3xRTP2QoH/RO8rg6ZN1A1x5aNrCdXbcFeo6+iXZMBuclSgFH9gaZLuvw/0qkTaRn3ffO1thCTiaSQE2F8aFoAH2MJl2q3FOwtXZ9FaKbieHDqg5vEVKKyvMjtUCgUx+pmkdpjs5jszGXIMcgvhXMBUIxpVrjSNpeayscgTg5cfRgTLpoNurvAqaTIAHLkUkDVLiFlvrwugqdU1XhO/7jT90omzSpCsTdVjDAnZ21YcHDfrxjibTeB9sDztZr7JXnIW6J0q6b4Uf76Rh9jFbDOgP3eeX0+S9h00mr2Ahfq/TX0JsdgGLc+lXEyOFal9Kw/0ea/5XPspAUJNG7w9Is/qUXUy36Q5ahSvNd1lMpCItFee2wCr8m7mspYBj9kVLhOV0HVyyev7HysIshm9wXjRgI7oUoHGzAHyAbluq/3QaWDsI7nf65RcZXrBSSZppcQHs1QruBkusiC6CwkuYzZymn/JCcZy1lO63Ol4bj6n1z9lp0WLfwyldFafEkYPopm9v4AvCxAj/qQlhpwdKQmAdUMPPD+8rwK7iHPvVelmEWDvTNQs6S+mZCSCehbvtXRP9GfitKECSjgeXxy9S/ZQ8loXnDuUp2u+vFCClg3UNlnmrnjUnXpqOFzb59+Pm6f8hinF3DbqAJY0fqL4pfyN+Fv8tD12h04=
 before_install:
-- if [ ! -d $HOME/google-cloud-sdk/bin ]; then
-    rm -rf $HOME/google-cloud-sdk;
-    curl https://sdk.cloud.google.com | bash > /dev/null;
-  fi
+- if [ ! -d $HOME/google-cloud-sdk/bin ]; then rm -rf $HOME/google-cloud-sdk; curl
+  https://sdk.cloud.google.com | bash > /dev/null; fi
 - source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud components update kubectl
 - gcloud version
@@ -22,21 +19,10 @@ before_install:
 - chmod +x deploy.sh
 cache:
   directories:
-  - $HOME/.m2/repository
-  - $HOME/google-cloud-sdk/
+  - "$HOME/.m2/repository"
+  - "$HOME/google-cloud-sdk/"
 script:
 - "./mvnw clean install -B"
-#after_success:
-#- docker login -u $DOCKER_USER -p $DOCKER_PASS
-#- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
-#  ; fi`
-#- export IMAGE_NAME=cbonami/shop-gateway
-#- docker build -t $IMAGE_NAME:$COMMIT .
-#- docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
-#- docker push $IMAGE_NAME
 after_success:
-# Auth flow
 - bash auth-gcloud.sh
-# Deployment if master branch and !PR
 - bash deploy.sh
-

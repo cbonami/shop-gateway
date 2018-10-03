@@ -5,27 +5,41 @@
 [Inspiration](http://thylong.com/ci/2016/deploying-from-travis-to-gce/)
 
 Make service account on GCP 
-* IAM > Service Accounts > Add
+* Google Cloud Dashboard > IAM > Service Accounts > Add
+Service Account Name: travisci
 Roles:
 * Project > Edit
 * Storage Admin
 
+Or use commandline (I did not get this working yet):
+
 ```
 gcloud projects add-iam-policy-binding shop -- member serviceAccount:travisci@refined-algebra-215620.iam.gserviceaccount.com -- role roles/storage.admin
+```
+
+Set some env variables needed by the Travis build (see .travis.yml > env.global.secure):
+
+```
+travis login --pro
+travis encrypt GKE_USERNAME=cbonami@gmail.com --add --com
+```
+
+... and/or set the env vars via 'Travis project settings': 
+
+* GCLOUD_EMAIL: travisci@refined-algebra-215620.iam.gserviceaccount.com
+* CLOUDSDK_CORE_PROJECT: your gcloud project id; eg: refined-algebra-215620
+* CLOUDSDK_COMPUTE_ZONE: europe-west1-b	
+* GKE_SERVER: the cluster IP: eg: 35.205.224.241
+* MICROSERVICE_NAME: shop-gateway
+* GKE_USERNAME: cbonami@gmail.com
+* GKE_PASSWORD: 
+
+Base64 encoding:
+```
 cat project-shop-gateway.json | base64 > base64
 ```
 
 > see pastebin.md for key
-
-Travis project settings: env vars:
-
-* GCLOUD_EMAIL: travisci@refined-algebra-215620.iam.gserviceaccount.com
-* CLOUDSDK_CORE_PROJECT: your project id on gcloud; eg: refined-algebra-215620
-* CLOUDSDK_COMPUTE_ZONE: europe-west1-b	
-* GKE_SERVER: the cluster IP: 35.205.224.241
-* MICROSERVICE_NAME: shop-gateway
-* GKE_USERNAME: cbonami@gmail.com
-* GKE_PASSWORD: 
 
 ## Links
 
