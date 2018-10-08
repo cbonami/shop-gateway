@@ -54,12 +54,18 @@ travis encrypt GKE_USERNAME=cbonami@gmail.com --add --com
 * GKE_SERVER: the cluster IP: eg: 35.205.224.241
 * MICROSERVICE_NAME: shop-gateway
 
+Get ingress :
+
+```
+vagrant@ubuntu-xenial:/vagrant/shop-gl/shop-gateway$ kubectl get ingress
+NAME                            HOSTS     ADDRESS        PORTS     AGE
+shop-gateway-ingress-resource   *         104.155.6.44   80        3m
+```
+
 Base64 encoding:
 ```
 cat project-shop-gateway.json | base64 > base64
 ```
-
-> see pastebin.md for key
 
 ## Links
 
@@ -71,3 +77,7 @@ https://stackoverflow.com/questions/29045140/env-bash-r-no-such-file-or-director
 ```
 git config --global core.autocrlf false
 ```
+
+## Todo
+
+* Fix base64-encoded gcloud.json

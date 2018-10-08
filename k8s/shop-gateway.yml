@@ -68,8 +68,8 @@ spec:
       paths:
       - path: /shop
         backend:
-          serviceName: shop-gateway-controller
-          servicePort: 8080
+          serviceName: shop-gateway
+          servicePort: 80
 
 #---
 #apiVersion: extensions/v1beta1
