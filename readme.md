@@ -1,6 +1,16 @@
 # Shop Gateway
 
-## GCE Ingress
+[Spring Cloud Gateway](https://cloud.spring.io/spring-cloud-gateway/) based microservice API gateway.
+Deployed on GCP/GCE Kubernetes.
+
+## Build & test & run
+
+```
+mvn clean install
+mvn spring-boot:run
+```
+
+## Deploy GCE Ingress
 
 [Inspired by this post](https://cloud.google.com/community/tutorials/nginx-ingress-gke)
 
@@ -57,13 +67,15 @@ And then the ingress-controller will internally fetch the routing rules from the
 
 Make a project on GCP.
 
-Make service account on GCP 
+Travis will access and operate under the restrictions of a service account on the k8s cluster.
+So we need to [make a service account on GCP](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount): 
 * Google Cloud Dashboard > IAM > Service Accounts > Add
 Service Account Name: travisci
 Roles:
 * Project > Edit
 * Storage Admin
 Make note of sa's email: travisci@...
+Make sure you download the private/public key-pair as a json-file (see [gcloud.json](./gcloud.json)).
 
 Instead, you could also use commandline (I did not get this working yet):
 
@@ -99,6 +111,10 @@ NAME                            HOSTS     ADDRESS        PORTS     AGE
 shop-gateway-ingress-resource   *         104.155.6.44   80        3m
 ```
 
+Check if gateway-app is available by pointing your browser to [http://<loadbalancer-ip>/actuator/health](http://35.233.125.101/actuator/health).
+
+## Varia
+
 Base64 encoding:
 ```
 cat project-shop-gateway.json | base64 > base64
@@ -118,3 +134,5 @@ git config --global core.autocrlf false
 ## Todo
 
 * Fix base64-encoded gcloud.json
+* TLS on nginx
+* Use a real domain instead of LB IP

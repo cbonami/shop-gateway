@@ -11,18 +11,24 @@ spring:
   cloud:
     gateway:
       routes:
+      - id: shopfront
+        predicates:
+        - Path=/shopfront/**
+        filters:
+        - RewritePath=/shopfront/(?<segment>.*), /$\{segment}
+        uri: http://shopfront:80
       - id: productcatalogue
         predicates:
         - Path=/productcatalogue/**
         filters:
         - RewritePath=/productcatalogue/(?<segment>.*), /$\{segment}
-        uri: http://productcatalogue:8080
+        uri: http://productcatalogue:80
       - id: stockmanager
         predicates:
         - Path=/stockmanager/**
         filters:
         - RewritePath=/stockmanager/(?<segment>.*), /$\{segment}
-        uri: http://stockmanager:8080
+        uri: http://stockmanager:80
 management:
   endpoints:
     web:

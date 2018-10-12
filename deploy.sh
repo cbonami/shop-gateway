@@ -10,6 +10,6 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
     gcloud container clusters get-credentials shop
     #  kubectl apply -f config/k8s/mongo.yml
     kubectl apply -f k8s/$MICROSERVICE_NAME.yml
-    kubectl rolling-update shop-gateway-controller --image=eu.gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1 --image-pull-policy Always
+    kubectl rolling-update $MICROSERVICE_NAME-controller --image=eu.gcr.io/$CLOUDSDK_CORE_PROJECT/$MICROSERVICE_NAME:v1 --image-pull-policy Always
     echo "done !"
 fi
