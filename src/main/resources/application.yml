@@ -8,27 +8,31 @@ spring:
       name: actuator
       password: actuator
       roles: ACTUATOR_ADMIN
-  cloud:
-    gateway:
-      routes:
-      - id: shopfront
-        predicates:
-        - Path=/shopfront/**
-        filters:
-        - RewritePath=/(?<segment>.*), /$\{segment}
-        uri: http://shopfront:80
-      - id: productcatalogue
-        predicates:
-        - Path=/productcatalogue/**
-        filters:
-        - RewritePath=/(?<segment>.*), /$\{segment}
-        uri: http://productcatalogue:80
-      - id: stockmanager
-        predicates:
-        - Path=/stockmanager/**
-        filters:
-        - RewritePath=/(?<segment>.*), /$\{segment}
-        uri: http://stockmanager:80
+#  cloud:
+#    gateway:
+#      # http://www.codeblogbt.com/archives/302364
+#      routes:
+#      - id: shopfront
+#        predicates:
+#        - Path=/shopfront/**
+#        filters:
+##        - RewritePath=/(?<segment>.*), /$\{segment}
+#        - StripPrefix=1
+#        uri: http://shopfront:80
+#      - id: productcatalogue
+#        predicates:
+#        - Path=/productcatalogue/**
+#        filters:
+##        - RewritePath=/(?<segment>.*), /$\{segment}
+#        - StripPrefix=1
+#        uri: http://productcatalogue:80
+#      - id: stockmanager
+#        predicates:
+#        - Path=/stockmanager/**
+#        filters:
+##        - RewritePath=/(?<segment>.*), /$\{segment}
+#        - StripPrefix=1
+#        uri: http://stockmanager:80
 management:
   endpoints:
     web:

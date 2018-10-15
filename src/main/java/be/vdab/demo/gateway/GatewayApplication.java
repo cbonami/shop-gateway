@@ -6,6 +6,7 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 
+//@Configuration
 @SpringBootApplication
 public class GatewayApplication {
 
@@ -14,24 +15,32 @@ public class GatewayApplication {
         SpringApplication.run(GatewayApplication.class, args);
     }
 
-//    @Bean
-//    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
-//        return builder.routes()
-//                .route(r ->
-//                        r.path("/productcatalogue/**")
-//                                .filters(
-//                                        f -> f.stripPrefix(1)
-//                                )
-//                                .uri("http://productcatalogue:8080/")
-//                )
-//                .route(r ->
-//                        r.path("/stockmanager/**")
-//                                .filters(
-//                                        f -> f.stripPrefix(1)
-//                                )
-//                                .uri("http://stockmanager:8080/")
-//                )
-//                .build();
-//    }
+    // http://www.codeblogbt.com/archives/302364
+    @Bean
+    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
+        return builder.routes()
+                .route("host_route", r ->
+                        r.path("/shopfront/**")
+                                .filters(
+                                        f -> f.stripPrefix(1)
+                                )
+                                .uri("http://shopfront:8082/")
+                )
+                .route("host_route", r ->
+                        r.path("/productcatalogue/**")
+                                .filters(
+                                        f -> f.stripPrefix(1)
+                                )
+                                .uri("http://productcatalogue:8083/")
+                )
+                .route("host_route", r ->
+                        r.path("/stockmanager/**")
+                                .filters(
+                                        f -> f.stripPrefix(1)
+                                )
+                                .uri("http://stockmanager:8081/")
+                )
+                .build();
+    }
 
 }
