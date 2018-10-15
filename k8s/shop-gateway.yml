@@ -46,7 +46,6 @@ metadata:
     app: shop-gateway
 spec:
   type: NodePort
-  # loadBalancerIP: 104.196.118.31
   ports:
   - port: 80
     targetPort: 8080
