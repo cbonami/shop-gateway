@@ -24,21 +24,21 @@ public class GatewayApplication {
                                 .filters(
                                         f -> f.stripPrefix(1)
                                 )
-                                .uri("http://shopfront:8082/")
+                                .uri("http://shopfront:8082")
                 )
                 .route("host_route", r ->
                         r.path("/productcatalogue/**")
                                 .filters(
                                         f -> f.stripPrefix(1)
                                 )
-                                .uri("http://productcatalogue:8083/")
+                                .uri("http://productcatalogue:8083")
                 )
                 .route("host_route", r ->
                         r.path("/stockmanager/**")
                                 .filters(
                                         f -> f.stripPrefix(1)
                                 )
-                                .uri("http://stockmanager:8081/")
+                                .uri("http://stockmanager:8081")
                 )
                 .build();
     }
